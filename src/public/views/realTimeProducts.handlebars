@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Real Time Products</title>
+  </head>
+  <body>
+    <h1>Lista de Productos en Tiempo Real</h1>
+    <ul id="realTimeList">
+      {{#each products}}
+        <li>{{this}}</li>
+      {{/each}}
+    </ul>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      socket.on('updateProducts', (products) => {      
+        const list = document.getElementById('realTimeList');
+        list.innerHTML = products.map(product => `<li>${product}</li>`).join('');
+      });
+    </script>
+  </body>
+</html>
